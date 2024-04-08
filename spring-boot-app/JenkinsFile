@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/vijeshnair89/Jenkins-Zero-To-Hero.git']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/vijeshnair89/end-to-end-cicd.git']])
             }
         }
         stage('Build') {
@@ -64,7 +64,7 @@ pipeline {
                         git add deployment.yml
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                         git remote -v
-                        git push https://github.com/vijeshnair89/Jenkins-Zero-To-Hero.git HEAD:main
+                        git push https://github.com/vijeshnair89/end-to-end-cicd.git HEAD:main
                         '''
                     }
                 }
