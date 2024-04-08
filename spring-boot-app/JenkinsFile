@@ -19,7 +19,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                cd java-maven-sonar-argocd-helm-k8s/spring-boot-app
+                cd spring-boot-app
                 mvn clean package
                 '''
             }
@@ -28,7 +28,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonar') {
                     sh '''
-                    cd java-maven-sonar-argocd-helm-k8s/spring-boot-app
+                    cd spring-boot-app
                     mvn sonar:sonar
                     '''
                 }
@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    cd java-maven-sonar-argocd-helm-k8s/spring-boot-app            
+                    cd spring-boot-app            
                     docker build -t ${docker_user}/todo-cicd:${BUILD_NUMBER} .
                     echo "Pushing Docker image to Registry"
                     docker login -u ${docker_user} -p ${docker_pass}
@@ -53,7 +53,7 @@ pipeline {
                 script{
                     withCredentials([gitUsernamePassword(credentialsId: 'github-creds', gitToolName: 'Default')]) {
                         sh '''
-                        cd java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests
+                        cd spring-boot-app-manifests
                         git config --global user.email "vijeshaws@gmail.com"
                         git config --global user.name "Vijesh"
                         cat deployment.yml
